@@ -18,7 +18,12 @@ function renderMovies(movies) {
 }
 
 function searchMovie(event) {
-    service.searchMovie(event.target.value).then(({ results }) => renderMovies(results));
+    let search = event.target.value;
+    setTimeout(() => {
+        if (document.querySelector('input').value === search) {
+            service.searchMovie(search).then(({ results }) => renderMovies(results));
+        }
+    }, 500);
 }
 
 window.addEventListener("load", function (event) {
