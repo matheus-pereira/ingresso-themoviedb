@@ -10,7 +10,15 @@ class Service {
         });
     }
 
-    searchMovie(query) {
+    getMoviesByGenre(genre) {
+        return new Promise((resolve, reject) => {
+            fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&language=pt-BR&with_genres=${genre}`)
+                .then(data => resolve(data.json()))
+                .catch(error => console.log(error) && reject(error));
+        });
+    }
+
+    searchMovies(query) {
         return new Promise((resolve, reject) => {
             fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&language=pt-BR&query=${query}`)
                 .then(data => resolve(data.json()))

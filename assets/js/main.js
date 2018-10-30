@@ -17,15 +17,24 @@ function renderMovies(movies) {
     window.scrollTo(0, 0);
 }
 
-function searchMovie(event) {
-    let search = event.target.value;
-    setTimeout(() => {
-        if (document.querySelector('input').value === search) {
-            service.searchMovie(search).then(({ results }) => renderMovies(results));
-        }
-    }, 500);
+function getPopular() {
+    service.getPopular().then(({ results }) => renderMovies(results));
 }
 
-window.addEventListener("load", function (event) {
-    service.getPopular().then(({ results }) => renderMovies(results));
+function getMoviesByGenre(genre) {
+    $('.navbar-toggler[aria-expanded="true"]').click();
+    service.getMoviesByGenre(genre).then(({ results }) => renderMovies(results));
+}
+
+document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    let search = document.querySelector('input').value;
+    if (search) {
+        service.searchMovies(search).then(({ results }) => renderMovies(results));
+        $('.navbar-toggler[aria-expanded="true"]').click();
+    }
+});
+
+window.addEventListener('load', function (event) {
+    getPopular();
 });
