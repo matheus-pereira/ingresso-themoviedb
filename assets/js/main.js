@@ -5,6 +5,9 @@ function getImagePath(image) {
 }
 
 function renderMovies(movies) {
+    if (!movies.length) {
+        return document.querySelector('#movies').innerHTML = '<p class="text-center text-muted mt-2">Nenhum título foi encontrado</p>';
+    }
     document.querySelector('#movies').innerHTML = movies.map(movie => `
         <div class="row mt-2">
             <div class="col-sm-12">
